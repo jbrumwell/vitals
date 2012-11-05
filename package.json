@@ -15,6 +15,9 @@
     "health",
     "monitor"
   ],
+  "devDependencies": {
+    "should": "*"
+  },
   "author": "Jason Brumwell",
   "license": "MIT"
 }
