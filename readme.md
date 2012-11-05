@@ -10,7 +10,7 @@
 ## Features
 
   - Windows & Unix support
-  - Meta data support
+  - Meta data support  
 
 ## Options
 
@@ -40,6 +40,16 @@ vitals.add(pid, [meta]);
 vitals.add([
     {pid: pid, meta: meta}
 ])
+```
+
+Getting monitored processes
+
+```js
+var proc = vitals.get(pid);
+var procs = vitals.get([pid,pid]);
+var procs = vitals.get(function(proc) {
+                    return proc.meta.key == 'value';
+                });
 ```
 
 Removing processes to vitals
