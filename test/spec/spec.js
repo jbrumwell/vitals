@@ -1,54 +1,54 @@
-var health = require('health'),
+var vitals = require('health'),
     pid    = 123,
     meta   = {};
 
-health.add(pid, meta);
+vitals.add(pid, meta);
 
-health.add([
+vitals.add([
     {pid: pid, meta: meta}
 ])
 
-health.remove(pid);
+vitals.remove(pid);
 
-health.remove([pid, pid, pid]);
+vitals.remove([pid, pid, pid]);
 
-health.remove(function(proc) {
+vitals.remove(function(proc) {
     return true;
 })
 
-health.remove(); //removes all
+vitals.remove(); //removes all
 
-health.start();
+vitals.start();
 
-health.stop();
+vitals.stop();
 
-health.get(pid, function(proc) {
+vitals.get(pid, function(proc) {
     
 });
 
-health.get(function(proc) {
+vitals.get(function(proc) {
     
 })
 
-health.length; //number of processes monitoring
+vitals.length; //number of processes monitoring
 
-health.on('started', function(proc) {
+vitals.on('started', function(proc) {
     
 });
 
-health.on('added', function(proc) {
+vitals.on('added', function(proc) {
     
 });
 
-health.on('removed', function(proc) {
+vitals.on('removed', function(proc) {
     
 })
 
-health.on('data', function(proc) {
+vitals.on('data', function(proc) {
     //data.meta == meta
 });
 
-health.on('stopped', function(proc) {
+vitals.on('stopped', function(proc) {
     
 });
 
