@@ -1,3 +1,3 @@
-module.exports = require('./lib/health');
+module.exports = require('./lib/vitals');
 
 
