@@ -90,6 +90,10 @@ vitals.on('data', function(proc, data) {
     //proc.meta._samples == Array[data, data, data]
     //data.collected is the time the sample was collected
 });
+
+var proc = vitals.get(pid);
+
+proc.meta._samples
 ```
 
 Events
