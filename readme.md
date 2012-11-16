@@ -9,12 +9,15 @@
 
 ## Features
 
-  - Windows & Unix support
+  - Windows & Unix support  
   - Meta data support  
+  - Data sampling
 
 ## Options
 
   - `interval` the interval in which to poll the processes (Default 3000ms)
+  - `maxSamples` the maximum number of samples to retain
+  - `sampleRate` the rate at which to sample data between 0 (disabled) and 1 for 100%, ie: 0.15 for 15% of the time
 
 ## Events
 
@@ -79,6 +82,12 @@ Count number of processes being monitored
 ```js
 vitals.length
 ```
+
+Sampling Data
+vitals.on('data', function(proc, data) {
+    //proc.meta._samples == Array[data, data, data]
+    //data.collected is the time the sample was collected
+});
 
 Events
 
