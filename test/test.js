@@ -301,9 +301,7 @@ describe('Health Monitor', function(){
                     assert.exists(data.uptime);
                     assert.exists(data.memoryUsage);                                       
                     done();
-                });  
-                
-                health.start();
+                });
             })
             
             it('should emit#data that contains process meta data', function(done) {               
@@ -311,9 +309,7 @@ describe('Health Monitor', function(){
                     assert.exists(proc.meta.custom);    
                     assert.equal('meta', proc.meta.custom);
                     done();
-                });     
-                
-                health.start();
+                });
             })
             
             afterEach(function() {
@@ -325,6 +321,67 @@ describe('Health Monitor', function(){
                 health.remove();
             })
         })
+        
+        describe('Data Sampling', function() {
+            before(function() {                
+                health.options.sampleRate = 1;                
+            });
+            
+            beforeEach(function() {
+                health.add(process.pid, {custom: 'meta'});
+                health.start();
+            })
+            
+            it('should provide sample data', function(done) {
+                health.on('data', function(proc, data) {
+                    assert.exists(proc.meta._samples);
+                    assert.equal(1, proc.meta._samples.length);
+                    done();                    
+                })
+            })
+            
+            it('should emit#data that contains uptime, cputime, memory usage and timestamp when collected', function(done) {          
+                health.on('data', function(proc, data) {
+                    assert.exists(proc.meta._samples);
+                    assert.exists(proc.meta._samples[0].cputime);
+                    assert.exists(proc.meta._samples[0].uptime);
+                    assert.exists(proc.meta._samples[0].memoryUsage); 
+                    assert.exists(proc.meta._samples[0].collected); 
+                    done();
+                })
+            })
+            
+            it('should adhere to the max sampling rate', function(done) {
+                var count = 0,
+                    until = 10;
+                
+                health.options.maxSamples = 3;
+                
+                this.timeout(10000);
+                
+                health.on('data', function(proc, data) {                                            
+                    ++count;
+                    
+                    assert.exists(proc.meta._samples);
+                    assert.equal(count > 3 ? 3 : count, proc.meta._samples.length);                   
+
+                    if (count >= until) {
+                         assert(count > proc.meta._samples.length);
+                         done();
+                    }                    
+                })
+            })                        
+            
+            afterEach(function() {
+                health.removeAllListeners('data');
+                health.remove();
+                health.stop();
+            }) 
+            
+            after(function() {
+                health.remove();
+            })
+        });
         
         describe('Stopping', function() {
             before(function() {
