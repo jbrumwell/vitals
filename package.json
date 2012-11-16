@@ -1,6 +1,6 @@
 {
   "name": "vitals",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vitals is a module that will collect health statistics for process ids past to it, currently collections cpu time, memory usage and uptime. ",
   "main": "index.js",
   "homepage": "http://github.com/jbrumwell/vitals",
