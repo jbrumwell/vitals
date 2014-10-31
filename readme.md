@@ -32,7 +32,7 @@
 Initiate vitals and add processes
 
 ```js
-var vitals = require('vitals');
+var vitals = require('vitals')();
 ```
 
 Adding processes to vitals
